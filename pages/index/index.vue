@@ -7,9 +7,10 @@
             </span>
         </div>
         <div class="head-right">
+            <nuxt-link to='/parent/child2'>guitar谱儿</nuxt-link>
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
-                 小demo<i class="el-icon-arrow-down el-icon--right"></i>
+                 小玩意儿<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="item in headdrop" :key="item.command" :command="item.command">{{item.value}}</el-dropdown-item>
@@ -29,10 +30,10 @@ export default {
     return {
       headdrop:[
         {
-          command:'window.open("/otherpage")',
+          command:'this.$router.push("/index/gobang")',
           value:'人机五子棋'
         },{
-          command:'bo',
+          command:'window.open("/index/bubble")',
           value:'运动的气泡'
         }
       ]
@@ -55,6 +56,18 @@ export default {
     color: white;
     span{
       font-size: 24px;
+      color: white;
+    }
+    .el-dropdown-link{
+      font-size: 14px;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .head-right>*{
+      margin-right: 20px;
     }
   }
 </style>

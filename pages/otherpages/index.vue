@@ -2,7 +2,7 @@
   <div class="container">
       <div class="head-left">
           <span>
-            otherpages
+            假装有首页
           </span>
       </div>
       <!-- <nuxt name="otherpages"/> -->
@@ -16,10 +16,10 @@ export default {
     return {
       headdrop:[
         {
-          command:'window.open("/otherpage")',
+          command:'window.open("/gobang")',
           value:'人机五子棋'
         },{
-          command:'bo',
+          command:'window.location.href="./index/gobang"',
           value:'运动的气泡'
         }
       ]
