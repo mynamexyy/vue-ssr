@@ -18,7 +18,7 @@
         </div>
     </div>
     <!-- <router-view></router-view> -->
-      <router-view></router-view> 
+      <nuxt-child></nuxt-child>
     <!-- <router-view name="otherpages"></router-view> -->
   </div>
 </template>
@@ -46,8 +46,15 @@ export default {
 }
 </script>
 
-<style>
-  .head-left{
-    
+<style lang="scss">
+  .header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #757575;
+    color: white;
+    span{
+      font-size: 24px;
+    }
   }
 </style>

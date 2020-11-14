@@ -5,7 +5,8 @@
             otherpages
           </span>
       </div>
-      <router-view name="otherpages"></router-view> 
+      <!-- <nuxt name="otherpages"/> -->
+      <nuxt-child keep-alive:foobar="123"></nuxt-child>
   </div>
 </template>
 
