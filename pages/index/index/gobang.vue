@@ -31,7 +31,7 @@ export default {
       eval(command);
     },
     reStart(){
-        window.location.reload();
+       location.reload()
     }
   },
   beforeCreate:function(){

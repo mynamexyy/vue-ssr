@@ -7,7 +7,7 @@
             </span>
         </div>
         <div class="head-right">
-            <nuxt-link to='/parent/child2'>guitar谱儿</nuxt-link>
+            <!-- <nuxt-link to='/parent/child2'>guitar谱儿</nuxt-link> -->
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
                  小玩意儿<i class="el-icon-arrow-down el-icon--right"></i>
@@ -33,7 +33,7 @@ export default {
           command:'this.$router.push("/index/gobang")',
           value:'人机五子棋'
         },{
-          command:'window.open("/index/bubble")',
+          command:'window.open("/bubble")',
           value:'运动的气泡'
         }
       ]
