@@ -7,7 +7,7 @@
             </span>
         </div>
         <div class="head-right">
-            <!-- <nuxt-link to='/parent/child2'>guitar谱儿</nuxt-link> -->
+            <nuxt-link to='/index/guitar'>吉他谱</nuxt-link>
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
                  小玩意儿<i class="el-icon-arrow-down el-icon--right"></i>
