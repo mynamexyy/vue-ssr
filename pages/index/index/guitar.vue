@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="btn-con">
-      <el-button type="primary" @click="adddialogVisible = true">添加谱子</el-button>
+      <el-button type="primary" @click="showModel('AddGuitarModel')">添加谱子</el-button>
     </div>
-    <AddGuitarModel :dialogVisible="adddialogVisible" :closeModel="closeModel"/>
+    <AddGuitarModel ref="AddGuitarModel"/>
   </div>
 </template>
 
@@ -12,13 +12,13 @@
     export default {
         data(){
             return {
-                guitarlist:[],
-                adddialogVisible:false
+                guitarlist:[]
             }
         },
         methods:{
-           closeModel:function(target){
-               this[target] = false;
+           showModel:function(target){
+               console.log(this);
+               this.$refs[target].setDialogVisible(true);
            } 
         },
         mounted(){

@@ -1,6 +1,7 @@
 <template>
     <el-dialog
         title="提示"
+        v-if="dialogVisible"
         :visible.sync="dialogVisible"
         :close-on-click-modal=false
         :modal=true
@@ -18,7 +19,7 @@
                 :on-preview="handlePictureCardPreview"
                 :auto-upload=true
                 :on-success="onSuccess"
-                :data="{id:id}"
+                :data="{id:id,name:name}"
                 :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
                 </el-upload>
@@ -30,7 +31,7 @@
                 </el-dialog>
         </div>
         <span slot="footer" class="dialog-footer">
-            <el-button @click="closeModel('adddialogVisible')">取 消</el-button>
+            <el-button @click="cancel()">取 消</el-button>
             <el-button type="primary" @click="submit">确 定</el-button>
         </span>
     </el-dialog>
@@ -44,19 +45,14 @@
                 name:'',
                 dialogImageUrl: '',
                 imgdialogVisible: false,
+                dialogVisible:false,
                 id: String(Math.floor(Math.random() * 100000)) + (new Date()).getTime(),
                 imgs:[]
             }
         },
         methods:{
             submit:function(){
-                var data = new FormData();
-                data.name = this.name;
-                data.files = this.imgs;
-                console.log(data);
-                axios.post(`http://127.0.0.1:8888`,data).then(res => {
-                    console.log(res);
-                })
+                console.log("校验")
             },
             onFileChange:function(file, fileList){
                 this.imgs = fileList;
@@ -64,12 +60,14 @@
             },
             onSuccess:function(res,file, fileList){
                 file.url = "http://127.0.0.1:8888/img?name="+res.filename;
+                file.filename = res.filename;
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
-                axios.delete("http://127.0.0.1:8888/img?name="+res.filename,{	
+                axios.delete("http://127.0.0.1:8888/img",{	
                         params: {	// 请求参数拼接在url上
-                            id: 12
+                            id: this.id,
+                            name: file.filename
                         }
                     }).then(res => {
                     console.log(res);
@@ -78,15 +76,24 @@
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.imgdialogVisible = true;
+            },
+            setDialogVisible(val){
+                this.dialogVisible = val;
+                this.name = '';
+            },
+            cancel(){
+                axios.delete("http://127.0.0.1:8888",{	
+                        params: {	// 请求参数拼接在url上
+                            id: this.id
+                        }
+                    }).then(res => {
+                        this.setDialogVisible(false);
+                })
             }
         },
         mounted(){
-            var arr = [1,2,3];
-            arr.splice(arr.indexOf(2),1)
-            console.log(arr)
-            console.log('mounted',this.id);
-        },
-        props: ['dialogVisible','closeModel']
+            
+        }
     }
 </script>
 <style>
