@@ -112,6 +112,13 @@ app.delete('/img', function(req, res){
                 data[i].imgs.splice(data[i].imgs.indexOf(req.query.name),1);
             }
         }
+        fs.unlink(__dirname + "/imgs/" + req.query.name,function(error){
+            if(error){
+                console.log(error);
+                return false;
+            }
+            console.log('删除文件成功');
+        }) 
         fs.writeFile('guiterdata.json', JSON.stringify(data), function (error) {
             if (error) {
                 console.log(error)

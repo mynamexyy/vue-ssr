@@ -23,7 +23,7 @@
         },
         mounted(){
             console.log(this)
-            axios.get(`http://127.0.0.1:8888`).then(res => {
+            axios.get(this.$global.host).then(res => {
                 console.log(res);
             })
         }

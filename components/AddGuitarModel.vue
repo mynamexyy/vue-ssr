@@ -13,7 +13,7 @@
         <div class="img-con">
             <span>谱子:</span>
             <el-upload
-                action="http://127.0.0.1:8888"
+                :action="$global.host"
                 list-type="picture-card"
                 :on-change="onFileChange"
                 :on-preview="handlePictureCardPreview"
@@ -59,12 +59,12 @@
                 console.log(file, fileList);
             },
             onSuccess:function(res,file, fileList){
-                file.url = "http://127.0.0.1:8888/img?name="+res.filename;
+                file.url = this.$global.host+"/img?name="+res.filename;
                 file.filename = res.filename;
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
-                axios.delete("http://127.0.0.1:8888/img",{	
+                axios.delete(this.$global.host+"/img",{	
                         params: {	// 请求参数拼接在url上
                             id: this.id,
                             name: file.filename
@@ -82,7 +82,7 @@
                 this.name = '';
             },
             cancel(){
-                axios.delete("http://127.0.0.1:8888",{	
+                axios.delete(this.$global.host,{	
                         params: {	// 请求参数拼接在url上
                             id: this.id
                         }
@@ -92,7 +92,7 @@
             }
         },
         mounted(){
-            
+            console.log(this.$global.host)
         }
     }
 </script>
