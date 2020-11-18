@@ -19,6 +19,7 @@
                 :on-preview="handlePictureCardPreview"
                 :auto-upload=true
                 :on-success="onSuccess"
+                :beforeAvatarUpload="beforeAvatarUpload"
                 :data="{id:id,name:name}"
                 :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
@@ -72,6 +73,15 @@
                     }).then(res => {
                     console.log(res);
                 })
+            },
+            beforeAvatarUpload(file) {
+                const isimg = file.type === 'image/jpeg';
+                console.log(file.type);
+                // if (!isJPG) {
+                // this.$message.error('上传头像图片只能是 JPG 格式!');
+                // }
+                // return isJPG;
+                return false;
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
