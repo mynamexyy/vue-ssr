@@ -12,15 +12,6 @@ app.all('*', (req, res, next) => {
     next();
   });
 var upload = multer({ dest: 'imgs/' });
-var data = [{a:'a'}];
-function doGet(request, response){
-    fs.readFile('guiterdata.json', function (err, data) {
-        if (err) {
-            return console.error(err);
-        }
-        response.end(data);
-    });
-}
 app.post('/', upload.single('file'), function(req, res, next){
     console.log(req.body.id,req.file.filename);
     var data = [];
@@ -58,7 +49,48 @@ app.get('/', function(req, res){
         if (err) {
             return console.error(err);
         }
-        res.end(data);
+        data = JSON.parse(data.toString());
+        if(req.query.id){
+            var target = null;
+            for(var i=0;i<data.length;i++){
+                if(req.query.name){
+                    if(data[i].name == req.query.name && data[i].id != req.query.id){
+                        target = data[i];
+                    }
+                    continue;
+                }
+                if(data[i].id == req.query.id){
+                    target = data[i];
+                }
+            }
+            if(target){
+                if(req.query.name && target.id == req.query.id){
+                    target.name = req.query.name;
+                    fs.writeFile('guiterdata.json', JSON.stringify(data), function (error) {
+                        if (error) {
+                          console.log(error)
+                        }
+                        res.send({status:'suc'});
+                    })
+                }else{
+                    res.send(target);
+                }
+            }else{
+                data.push({
+                    id:req.query.id,
+                    imgs:[],
+                    name:req.query.name
+                })
+                fs.writeFile('guiterdata.json', JSON.stringify(data), function (error) {
+                    if (error) {
+                      console.log(error)
+                    }
+                    res.send({status:'suc'});
+                })
+            }
+        }else{
+            res.end(JSON.stringify(data));
+        }
      });
 });
 
@@ -98,7 +130,6 @@ app.delete('/', function(req, res){
 });
 
 app.get('/img', function(req, res){
-    console.log(req.query.name);
     res.sendFile(__dirname + "/imgs/" + req.query.name);
 });
 app.delete('/img', function(req, res){
@@ -117,7 +148,6 @@ app.delete('/img', function(req, res){
                 console.log(error);
                 return false;
             }
-            console.log('删除文件成功');
         }) 
         fs.writeFile('guiterdata.json', JSON.stringify(data), function (error) {
             if (error) {
