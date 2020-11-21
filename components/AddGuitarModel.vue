@@ -63,6 +63,7 @@
                     this.$message.error('有重复谱名!');
                 }else{
                     this.setDialogVisible(false);
+                    this.getData();
                 }
             },
             onFileChange:function(file, fileList){
@@ -73,7 +74,6 @@
                 file.filename = res.filename;
             },
             onNameChange:function(val){
-                console.log(val);
                 var that = this;
                 if(that.timeout){
                     clearTimeout(that.timeout);
@@ -136,7 +136,8 @@
         },
         mounted(){
             console.log(this.$global.host)
-        }
+        },
+        props:['getData']
     }
 </script>
 <style>
